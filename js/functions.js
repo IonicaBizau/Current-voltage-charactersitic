@@ -132,8 +132,8 @@ $(document).ready(function () {
         }
     });
 
-    var max = 226
-      , min = 98
+    var max = 176
+      , min = 50
       ;
 
     $("img").on("dragstart", function () {
@@ -144,19 +144,19 @@ $(document).ready(function () {
         onlyY: true
       , onDrag: function (e, cEl) {
 
-            var value = (cEl.offsetLeft - min) / 8.6;
+            var value = (cEl.offsetTop - min) / 8.6;
             if (value < 0) { value = 0; }
             $(".vol input").val(value.toFixed(2));
             updateResult(value);
 
 
-            if (cEl.offsetLeft > max) {
-                cEl.style.left = (parseInt(cEl.style.left) - 1) + "px";
+            if (cEl.offsetTop > max) {
+                cEl.style.top = (parseInt(cEl.style.top) - 1) + "px";
                 return false;
             }
 
-            if (cEl.offsetLeft < min) {
-                cEl.style.left = (parseInt(cEl.style.left) + 1) + "px";
+            if (cEl.offsetTop < min) {
+                cEl.style.top = (parseInt(cEl.style.top) + 1) + "px";
                 return false;
             }
         }
@@ -235,7 +235,7 @@ $(document).ready(function () {
             return;
         }
 
-        document.querySelector(".cursor").style.left = value * 8.6 + min + "px";
+        document.querySelector(".cursor").style.top = value * 8.6 + min + "px";
         updateResult(value);
     }).val("0").change();
 });
