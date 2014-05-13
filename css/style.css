@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: rgb(54, 0, 0);
+    background: #00152B;
     overflow: hidden;
 }
 
@@ -54,10 +54,10 @@ div.container {
     left: 50%;
     background: #2B85ED;
     color: white;
-    margin-left: -515px;
+    margin-left: -600px;
     padding: 30px;
     border-bottom: 11px solid white;
-    width: 960px;
+    width: 1130px;
     height: 525px;
 }
 
@@ -221,22 +221,22 @@ div.container h2.small {
     font-weight: bold;
 }
 .physics-instrument.amp {
-    top: 15px;
-    left: 316px;
+    top: 125px;
+    left: 431px;
 }
 .physics-instrument.vol {
-    top: 165px;
-    left: -4px;
+    top: 45px;
+    left: 303px;
 }
 
 div.cursor {
-  width: 10px;
-  height: 87px;
-  background: rgb(245, 181, 85);
-  top: 214px;
-  left: 160px;
-  cursor: pointer;
-  border-radius: 0 0 14px 14px;
+    width: 78px;
+    height: 16px;
+    background: #F5B555;
+    top: 50px;
+    left: 121px;
+    cursor: pointer;
+    border-radius: 8px 0 0 8px;
 }
 
 div.button {
@@ -256,7 +256,7 @@ div.button.theory-switch {
 
 div.button.clear-graph {
     bottom: -387px;
-    left: 492px;
+    left: 661px;
     color: #2B85ED;
     background: white;
     width: 125px;
@@ -296,7 +296,7 @@ div#graph {
     background: #2980B9;
     position: absolute;
     top: 10px;
-    left: 490px;
+    left: 660px;
 }
 
 div.container p.copyright {

@@ -82,7 +82,7 @@ $(document).ready(function () {
     $(".add-points").css({
         "bottom": "-360px"
       , "position": "absolute"
-      , "left": "685px"
+      , "left": "855px"
       , "width": "352px"
       , "font-weight": "bold"
     });
@@ -141,7 +141,7 @@ $(document).ready(function () {
     });
 
     SimpleDraggable(".cursor", {
-        onlyX: true
+        onlyY: true
       , onDrag: function (e, cEl) {
 
             var value = (cEl.offsetLeft - min) / 8.6;
