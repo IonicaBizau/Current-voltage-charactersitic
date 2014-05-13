@@ -38,6 +38,14 @@ select.language {
     left: 177px;
 }
 
+select.changeElement {
+    position: absolute;
+    bottom: -300px;
+    left: -73px;
+    padding: 8px;
+    background: #005B97;
+}
+
 a {
     color: white;
 }

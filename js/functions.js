@@ -79,6 +79,20 @@ $(document).ready(function () {
         }
     }).change();
 
+    var currentElement = {};
+
+    $("select.changeElement").on("change", function () {
+        currentElement.name = $(this).val();
+        currentElement.functionLaw = function (x) {
+            return 13;
+        }
+
+        // update elements
+        $("[data-name]", ".changeableElement").hide();
+        $("[data-name='" + currentElement.name + "']", ".changeableElement").show();
+
+    }).change();
+
     $(".add-points").css({
         "bottom": "-360px"
       , "position": "absolute"
