@@ -83,9 +83,24 @@ $(document).ready(function () {
 
     $("select.changeElement").on("change", function () {
         currentElement.name = $(this).val();
-        currentElement.functionLaw = function (x) {
-            return 13;
-        }
+        currentElement.functionLaw = ({
+            rezistor: function (x) {
+                return 1 / 500 * x;
+            }
+          , bulb: function (x) {
+                return 1 / 500 * x;
+            }
+          , diode: function (x) {
+                if (x > 0) {
+                    return Math.pow (x, 3 / 2);
+                }
+                if (x < 0 && x > -4) {
+                    return x / 100;
+                }
+
+                return Math.pow (x, 3) / 10;
+            }
+        })[currentElement.name];
 
         // update elements
         $("[data-name]", ".changeableElement").hide();
@@ -108,13 +123,13 @@ $(document).ready(function () {
       , axes: {
             xaxis: {
                 label: "U (V)"
-              , min: 0
-              , max: 15
+              , min: -4
+              , max: 4.5
             }
           , yaxis: {
                 label: "I (mA)"
-              , min: 0
-              , max: 22
+              , min: -21.6
+              , max: 190
             }
         }
     });
@@ -187,7 +202,7 @@ $(document).ready(function () {
      */
     function updateResult (value) {
         var x = value
-          , y = comptuteValue (value)
+          , y = currentElement.functionLaw (value)
           ;
 
         if ($(".add-points input").prop("checked")) {
@@ -208,30 +223,6 @@ $(document).ready(function () {
         seriesObj.data = [];
         expGraph.drawSeries({},0);
     });
-
-    function comptuteValue (value) {
-
-        var period = 4.9
-          , low = 6
-          ;
-
-        var y = 0;
-        if (value > period && value % period > 0 && value % period < 0.3) {
-            if (value <= period * 2) {
-                y = -10.88 * value + 66.92;
-            } else {
-                y = comptuteValue (value - period) + 2 * Math.floor(value / period);
-            }
-        } else {
-            if (value <= period) {
-                return Math.pow (value, 3/2) * 1.3829202595488537;
-            } else {
-                return comptuteValue (value - period) + 2 * Math.floor(value / period);
-            }
-        }
-
-        return y;
-    }
 
     // change handler for voltmeter input
     $(".vol input").on("change", function () {
