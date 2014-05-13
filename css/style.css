@@ -310,3 +310,23 @@ p.copyright a {
     color: white;
     font-weight: bold;
 }
+
+/* changeable elements */
+.changeableElement img[data-name='rezistor'] {
+    width: 100px;
+}
+.changeableElement img[data-name='bulb'] {
+    width: 50px;
+    top: 25px;
+    left: 25px;
+}
+.changeableElement img[data-name='diode'] {
+    width: 50px;
+    top: 25px;
+    left: 25px;
+}
+
+.changeableElement {
+    top: -40px;
+    left: 293px;
+}
