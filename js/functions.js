@@ -80,17 +80,27 @@ $(document).ready(function () {
     }).change();
 
     var currentElement = {};
-
-    $("select.changeElement").on("change", function () {
-        currentElement.name = $(this).val();
-        currentElement.functionLaw = ({
-            rezistor: function (x) {
+    var values = {
+        rezistor: {
+            functionLaw: function (x) {
                 return 1 / 500 * x;
             }
-          , bulb: function (x) {
+          , x: {
+                min: -12
+              , max: 12
+            }
+        }
+      , bulb: {
+            functionLaw: function (x) {
                 return 1 / 500 * x;
             }
-          , diode: function (x) {
+          , x: {
+                min: 0
+              , max: 10
+            }
+        }
+      , diode: {
+            functionLaw: function (x) {
                 if (x > 0) {
                     return Math.pow (x, 3 / 2);
                 }
@@ -100,12 +110,47 @@ $(document).ready(function () {
 
                 return Math.pow (x, 3) / 10;
             }
-        })[currentElement.name];
+          , x: {
+                min: -4
+              , max: 4.5
+            }
+        }
+    };
+
+    // attach y values
+    for (var el in values) {
+        values[el].y = {
+            min: values[el].functionLaw(values[el].x.min)
+          , max: values[el].functionLaw(values[el].x.max)
+        }
+    }
+
+    $("select.changeElement").on("change", function () {
+        currentElement = values[$(this).val()];
 
         // update elements
         $("[data-name]", ".changeableElement").hide();
         $("[data-name='" + currentElement.name + "']", ".changeableElement").show();
 
+        $("#graph").empty();
+
+        expGraph  = $.jqplot ('graph', [[[]]], {
+            axesDefaults: {
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+            }
+          , axes: {
+                xaxis: {
+                    label: "U (V)"
+                  , min: currentElement.x.min
+                  , max: currentElement.x.max
+                }
+              , yaxis: {
+                    label: "I (mA)"
+                  , min: currentElement.y.min
+                  , max: currentElement.y.max
+                }
+            }
+        });
     }).change();
 
     $(".add-points").css({
@@ -116,7 +161,7 @@ $(document).ready(function () {
       , "font-weight": "bold"
     });
 
-    var expGraph = $.jqplot ('graph', [[[]]], {
+    var expGraph  = $.jqplot ('graph', [[[]]], {
         axesDefaults: {
             labelRenderer: $.jqplot.CanvasAxisLabelRenderer
         }
