@@ -143,11 +143,15 @@ $(document).ready(function () {
                     label: "U (V)"
                   , min: currentElement.x.min
                   , max: currentElement.x.max
+                  , tickOptions: { formatString: '%d' }
+                  , tickInterval: 1
                 }
               , yaxis: {
                     label: "I (mA)"
                   , min: currentElement.y.min
                   , max: currentElement.y.max
+                  , tickOptions: { formatString: '%d' }
+                  //, tickInterval: 1
                 }
             }
         });
