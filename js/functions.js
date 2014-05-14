@@ -62,6 +62,10 @@ var SimpleDraggable = function (selector, options) {
  * */
 $(document).ready(function () {
 
+    $("select").on("keydown", function () {
+        return false;
+    });
+
     var screenVisible = true;
 
     // on change
@@ -143,14 +147,13 @@ $(document).ready(function () {
                     label: "U (V)"
                   , min: currentElement.x.min
                   , max: currentElement.x.max
-                  , tickOptions: { formatString: '%d' }
-                  , tickInterval: 1
+                  , tickOptions: { formatString: "%#.2f" }
                 }
               , yaxis: {
                     label: "I (mA)"
                   , min: currentElement.y.min
                   , max: currentElement.y.max
-                  , tickOptions: { formatString: '%d' }
+                  , tickOptions: { formatString: "%#.2f" }
                   //, tickInterval: 1
                 }
             }
