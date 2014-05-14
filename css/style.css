@@ -279,7 +279,7 @@ div.button.clear-graph:hover {
     background: #ecf0f1;
 }
 
-div.transition {
+.transition {
     -webkit-transition: all 300ms linear;
     -moz-transition:    all 300ms linear;
     -o-transition:      all 300ms linear;
@@ -337,4 +337,13 @@ p.copyright a {
 .changeableElement {
     top: -40px;
     left: 293px;
+}
+
+/* polarity */
+img.polarity {
+    width: 66px;
+    top: 47px;
+    left: -98px;
+    -webkit-transform: rotateZ(0deg);
+    cursor: pointer;
 }
