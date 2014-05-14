@@ -85,8 +85,9 @@ $(document).ready(function () {
 
     var currentElement = {};
     var values = {
-        rezistor: {
-            functionLaw: function (x) {
+        resistor: {
+            name: "resistor"
+          , functionLaw: function (x) {
                 return 1 / 500 * x;
             }
           , x: {
@@ -95,7 +96,8 @@ $(document).ready(function () {
             }
         }
       , bulb: {
-            functionLaw: function (x) {
+            name: "bulb"
+          , functionLaw: function (x) {
                 return 1 / 500 * x;
             }
           , x: {
@@ -104,7 +106,8 @@ $(document).ready(function () {
             }
         }
       , diode: {
-            functionLaw: function (x) {
+            name: "diode"
+          , functionLaw: function (x) {
                 if (x > 0) {
                     return Math.pow (x, 3 / 2);
                 }
@@ -166,24 +169,6 @@ $(document).ready(function () {
       , "left": "855px"
       , "width": "352px"
       , "font-weight": "bold"
-    });
-
-    var expGraph  = $.jqplot ('graph', [[[]]], {
-        axesDefaults: {
-            labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-        }
-      , axes: {
-            xaxis: {
-                label: "U (V)"
-              , min: -4
-              , max: 4.5
-            }
-          , yaxis: {
-                label: "I (mA)"
-              , min: -21.6
-              , max: 190
-            }
-        }
     });
 
     // initial animation

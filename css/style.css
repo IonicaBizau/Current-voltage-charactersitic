@@ -320,7 +320,7 @@ p.copyright a {
 }
 
 /* changeable elements */
-.changeableElement img[data-name='rezistor'] {
+.changeableElement img[data-name='resistor'] {
     width: 100px;
 }
 .changeableElement img[data-name='bulb'] {
