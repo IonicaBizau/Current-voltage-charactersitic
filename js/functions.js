@@ -225,11 +225,13 @@ $(document).ready(function () {
         onlyY: true
       , onDrag: function (e, cEl) {
 
-            var value = (cEl.offsetTop - min) / 8.6;
-            if (value < 0) { value = 0; }
+            var value = (cEl.offsetTop - min) / ((max - min) / (currentElement.x.max - currentElement.x.min));
+            if (currentElement.x.min < 0) {
+                value += currentElement.x.min;
+            }
+            if (value < currentElement.x.min) { value = currentElement.x.min; }
             $(".vol input").val(value.toFixed(2));
             updateResult(value);
-
 
             if (cEl.offsetTop > max) {
                 cEl.style.top = (parseInt(cEl.style.top) - 1) + "px";
@@ -278,21 +280,26 @@ $(document).ready(function () {
 
     // change handler for voltmeter input
     $(".vol input").on("change", function () {
+
         var value = Number($(this).val());
 
         // max value
-        if (value > 15) {
-            $(this).val(15).change();
+        if (value > currentElement.x.max) {
+            $(this).val(currentElement.x.max).change();
             return;
         }
 
         // min value
-        if (value < 0 || isNaN(value)) {
-            $(this).val(0).change();
+        if (value < currentElement.x.min || isNaN(value)) {
+            $(this).val(currentElement.x.min).change();
             return;
         }
+        var topValue = value * ((max - min) / (currentElement.x.max - currentElement.x.min)) + min;
+        if (currentElement.x.min < 0) {
+            topValue += -currentElement.x.min;
+        }
 
-        document.querySelector(".cursor").style.top = value * 8.6 + min + "px";
+        document.querySelector(".cursor").style.top = topValue + "px";
         updateResult(value);
     }).val("0").change();
 });
