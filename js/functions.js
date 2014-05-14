@@ -66,6 +66,17 @@ $(document).ready(function () {
         return false;
     });
 
+    var degs = 0;
+
+    $(".polarity").on("click", function () {
+        if (!degs) { degs = 180; }
+        else { degs = 0; }
+        $(this).css ({
+            "-webkit-transform": "rotateZ(" + degs + "deg)"
+          , "-moz-transform": "rotateZ(" + degs + "deg)"
+        });
+    });
+
     var screenVisible = true;
 
     // on change
@@ -98,10 +109,10 @@ $(document).ready(function () {
       , bulb: {
             name: "bulb"
           , functionLaw: function (x) {
-                return 1 / 500 * x;
+                return Math.pow (x, 1/3);
             }
           , x: {
-                min: 0
+                min: -10
               , max: 10
             }
         }
@@ -112,13 +123,13 @@ $(document).ready(function () {
                     return Math.pow (x, 3 / 2);
                 }
                 if (x < 0 && x > -4) {
-                    return x / 100;
+                    return x / 5;
                 }
 
-                return Math.pow (x, 3) / 10;
+                return x * 5;
             }
           , x: {
-                min: -4
+                min: -4.5
               , max: 4.5
             }
         }
@@ -129,7 +140,7 @@ $(document).ready(function () {
         values[el].y = {
             min: values[el].functionLaw(values[el].x.min)
           , max: values[el].functionLaw(values[el].x.max)
-        }
+        };
     }
 
     $("select.changeElement").on("change", function () {
@@ -157,7 +168,6 @@ $(document).ready(function () {
                   , min: currentElement.y.min
                   , max: currentElement.y.max
                   , tickOptions: { formatString: "%#.2f" }
-                  //, tickInterval: 1
                 }
             }
         });
@@ -210,11 +220,9 @@ $(document).ready(function () {
         onlyY: true
       , onDrag: function (e, cEl) {
 
-            var value = (cEl.offsetTop - min) / ((max - min) / (currentElement.x.max - currentElement.x.min));
-            if (currentElement.x.min < 0) {
-                value += currentElement.x.min;
-            }
-            if (value < currentElement.x.min) { value = currentElement.x.min; }
+            var value = (cEl.offsetTop - min) / ((max - min) / currentElement.x.max);
+            value = (degs === 0 ? 1 : -1) * value;
+
             $(".vol input").val(value.toFixed(2));
             updateResult(value);
 
@@ -262,29 +270,4 @@ $(document).ready(function () {
         seriesObj.data = [];
         expGraph.drawSeries({},0);
     });
-
-    // change handler for voltmeter input
-    $(".vol input").on("change", function () {
-
-        var value = Number($(this).val());
-
-        // max value
-        if (value > currentElement.x.max) {
-            $(this).val(currentElement.x.max).change();
-            return;
-        }
-
-        // min value
-        if (value < currentElement.x.min || isNaN(value)) {
-            $(this).val(currentElement.x.min).change();
-            return;
-        }
-        var topValue = value * ((max - min) / (currentElement.x.max - currentElement.x.min)) + min;
-        if (currentElement.x.min < 0) {
-            topValue += -currentElement.x.min;
-        }
-
-        document.querySelector(".cursor").style.top = topValue + "px";
-        updateResult(value);
-    }).val("0").change();
 });
