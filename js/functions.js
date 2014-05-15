@@ -75,6 +75,10 @@ $(document).ready(function () {
             "-webkit-transform": "rotateZ(" + degs + "deg)"
           , "-moz-transform": "rotateZ(" + degs + "deg)"
         });
+
+        updateResult (0);
+        $(".vol input").val("0.00");
+        $(".cursor").css("top", min);
     });
 
     var screenVisible = true;
@@ -109,6 +113,10 @@ $(document).ready(function () {
       , bulb: {
             name: "bulb"
           , functionLaw: function (x) {
+                if (x < 0) {
+                    return -values.bulb.functionLaw (-x);
+                }
+
                 return Math.pow (x, 1/3);
             }
           , x: {
@@ -119,14 +127,14 @@ $(document).ready(function () {
       , diode: {
             name: "diode"
           , functionLaw: function (x) {
-                if (x > 0) {
-                    return Math.pow (x, 3 / 2);
+                if (x >= 0) {
+                    return Math.pow (x, 3 / 2) * 4;
                 }
                 if (x < 0 && x > -4) {
                     return x / 5;
                 }
 
-                return x * 5;
+                return -98.50000000015939 * Math.pow(x, 2) - 796.8500000012887 * x - 1612.2000000026096;
             }
           , x: {
                 min: -4.5
@@ -138,8 +146,8 @@ $(document).ready(function () {
     // attach y values
     for (var el in values) {
         values[el].y = {
-            min: values[el].functionLaw(values[el].x.min)
-          , max: values[el].functionLaw(values[el].x.max)
+            min: (values[el].y || {}).min || values[el].functionLaw(values[el].x.min)
+          , max: (values[el].y || {}).max || values[el].functionLaw(values[el].x.max)
         };
     }
 
@@ -181,6 +189,10 @@ $(document).ready(function () {
                 }
             }
         });
+
+        updateResult (0);
+        $(".vol input").val("0.00");
+        $(".cursor").css("top", min);
     }).change();
 
     $(".add-points").css({
@@ -232,6 +244,9 @@ $(document).ready(function () {
 
             var value = (cEl.offsetTop - min) / ((max - min) / currentElement.x.max);
             value = (degs === 0 ? 1 : -1) * value;
+            if (!degs && value < 0 || degs && value > 0) {
+                value = 0;
+            }
 
             $(".vol input").val(value.toFixed(2));
             updateResult(value);
@@ -272,6 +287,7 @@ $(document).ready(function () {
             expGraph.drawSeries({},0);
         }
 
+        console.log(x, y);
         $(".amp input").val(y.toFixed(2));
     }
 
