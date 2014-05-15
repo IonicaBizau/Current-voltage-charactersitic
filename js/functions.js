@@ -287,7 +287,6 @@ $(document).ready(function () {
             expGraph.drawSeries({},0);
         }
 
-        console.log(x, y);
         $(".amp input").val(y.toFixed(2));
     }
 
