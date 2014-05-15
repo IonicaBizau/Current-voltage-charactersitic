@@ -174,7 +174,7 @@ $(document).ready(function () {
                       , howGridline: false
                       , textColor: '#ffffff'
                       , fontSize: '12px'
-                    },
+                    }
                 }
               , yaxis: {
                     label: "I (mA)"
@@ -185,7 +185,7 @@ $(document).ready(function () {
                       , howGridline: false
                       , textColor: '#ffffff'
                       , fontSize: '12px'
-                    },
+                    }
                 }
             }
         });
