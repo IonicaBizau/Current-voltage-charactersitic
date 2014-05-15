@@ -161,13 +161,23 @@ $(document).ready(function () {
                     label: "U (V)"
                   , min: currentElement.x.min
                   , max: currentElement.x.max
-                  , tickOptions: { formatString: "%#.2f" }
+                  , tickOptions: {
+                        formatString: "%#.2f"
+                      , howGridline: false
+                      , textColor: '#ffffff'
+                      , fontSize: '12px'
+                    },
                 }
               , yaxis: {
                     label: "I (mA)"
                   , min: currentElement.y.min
                   , max: currentElement.y.max
-                  , tickOptions: { formatString: "%#.2f" }
+                  , tickOptions: {
+                        formatString: "%#.2f"
+                      , howGridline: false
+                      , textColor: '#ffffff'
+                      , fontSize: '12px'
+                    },
                 }
             }
         });
