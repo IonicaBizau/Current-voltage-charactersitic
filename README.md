@@ -1,6 +1,6 @@
-Franck-and-Hertz-Experiment
-===========================
+Current–voltage characteristic
+==============================
 
-Simulate the Franck and Hertz experiment via HTML, CSS and JavaScript
+Analize current-voltage characteristics using an application that simulates this.
 
 > [![](http://i.imgur.com/gglOqxg.png)](http://physicsprojects.github.io/Franck-and-Hertz-Experiment/)

@@ -32,10 +32,17 @@ select {
     background: #2B85ED;
 }
 
+/*
 select.language {
     position: absolute;
     bottom: -36px;
     left: 177px;
+}
+*/
+select.language {
+    position: absolute;
+    bottom: -36px;
+    left: -2.5px;
 }
 
 select.changeElement {
