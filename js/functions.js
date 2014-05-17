@@ -120,8 +120,8 @@ $(document).ready(function () {
                 return Math.pow (x, 1/3);
             }
           , x: {
-                min: -10
-              , max: 10
+                min: -5
+              , max: 5
             }
         }
       , diode: {
@@ -273,6 +273,9 @@ $(document).ready(function () {
      *
      */
     function updateResult (value) {
+        // if (currentElement.name === "bulb") {
+        //     value *= 3;
+        // }
         var x = value
           , y = currentElement.functionLaw (value)
           ;
