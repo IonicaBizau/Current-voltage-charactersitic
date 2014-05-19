@@ -354,3 +354,7 @@ img.polarity {
     -webkit-transform: rotateZ(0deg);
     cursor: pointer;
 }
+
+canvas {
+    pointer-events: none;
+}
