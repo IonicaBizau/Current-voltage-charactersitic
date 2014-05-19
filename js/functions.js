@@ -150,7 +150,7 @@ $(document).ready(function () {
         resistor: {
             name: "resistor"
           , functionLaw: function (x) {
-                return 1 / 300 * x;
+                return 1 / 200 * x;
             }
           , x: {
                 min: -12
