@@ -120,6 +120,41 @@ $(document).ready(function () {
         }
     };
 
+    var termometer = {
+        started: false
+      , setValue: function (deg) {
+            $(".termometer-value > .v").text(deg);
+            $(".termometer-level").css("top", (deg * (-1.68) + 239) + "px")
+        }
+      , stop: function () {
+            clearInterval(termometer.interval);
+            termometer.started = false;
+        }
+      , handler: function () {
+            if (termometer.started) { return; }
+            termometer.started = true;
+
+            // 206 ... 80
+            // 20 .... 95
+            // f (20) = 206;
+            // f (95) = 80
+            //
+            // 20a + b = 206
+            // 95a + b = 80
+            // ------------
+            // 75a = -126
+            // a = -1.68
+            // b = 239.6
+            var value = 20;
+            termometer.interval = setInterval (function () {
+                termometer.setValue(value += 4);
+                if (value >= 90) {
+                    clearInterval(termometer.interval);
+                }
+            }, 200);
+        }
+    }
+
     $("select").on("keydown", function () {
         return false;
     });
@@ -137,6 +172,8 @@ $(document).ready(function () {
         updateResult (0);
         $(".vol input").val("0.00");
         $(".cursor").css("top", min);
+        termometer.setValue(20);
+        termometer.stop();
     });
 
     var screenVisible = true;
@@ -239,6 +276,7 @@ $(document).ready(function () {
                     return x * 5;
                 }
 
+                termometer.handler();
                 return (x < 0 ? -1 : 1 ) * 15 - x / 10;
             }
           , x: {
@@ -324,6 +362,8 @@ $(document).ready(function () {
         updateResult (0);
         $(".vol input").val("0.00");
         $(".cursor").css("top", min);
+        termometer.setValue(20);
+        termometer.stop();
     }).change();
 
     $(".add-points").css({
