@@ -122,6 +122,17 @@ $(document).ready(function () {
 
     var termometer = {
         started: false
+        // 206 ... 80
+        // 20 .... 95
+        // f (20) = 206;
+        // f (95) = 80
+        //
+        // 20a + b = 206
+        // 95a + b = 80
+        // ------------
+        // 75a = -126
+        // a = -1.68
+        // b = 239.6
       , setValue: function (deg) {
             $(".termometer-value > .v").text(deg);
             $(".termometer-level").css("top", (deg * (-1.68) + 239) + "px")
@@ -130,29 +141,14 @@ $(document).ready(function () {
             clearInterval(termometer.interval);
             termometer.started = false;
         }
-      , handler: function () {
-            if (termometer.started) { return; }
-            termometer.started = true;
-
-            // 206 ... 80
-            // 20 .... 95
-            // f (20) = 206;
-            // f (95) = 80
-            //
-            // 20a + b = 206
-            // 95a + b = 80
-            // ------------
-            // 75a = -126
-            // a = -1.68
-            // b = 239.6
-            var value = 20;
-            termometer.interval = setInterval (function () {
-                termometer.setValue(value += 4);
-                if (value >= 90) {
-                    clearInterval(termometer.interval);
-                }
-            }, 200);
-        }
+      //, handler: function () {
+      //      if (termometer.started) { return; }
+      //      termometer.started = true;
+      //      termometer.setValue(value += 1);
+      //      if (value >= 90) {
+      //          clearInterval(termometer.interval);
+      //      }
+      //  }
     }
 
     $("select").on("keydown", function () {
@@ -174,6 +170,7 @@ $(document).ready(function () {
         $(".cursor").css("top", min);
         termometer.setValue(20);
         termometer.stop();
+        latest = null;
     });
 
     var screenVisible = true;
@@ -273,10 +270,25 @@ $(document).ready(function () {
             name: "termistor"
           , functionLaw: function (x) {
                 if (x < 3 && x > -3) {
+                    termometer.setValue(20);
                     return x * 5;
                 }
 
-                termometer.handler();
+                // 3 ........ 25
+                // 30 ....... 90
+                // -------------
+                // 30a + b = 90
+                // 3a + b = 25
+                // ------------
+                // 27a = 65
+                // a = 2.4
+                // b =42
+
+                function computeTermometerValue () {
+                    return x * 2.4 + 42;
+                }
+
+                termometer.setValue(computeTermometerValue().toFixed());
                 return (x < 0 ? -1 : 1 ) * 15 - x / 10;
             }
           , x: {
@@ -327,6 +339,9 @@ $(document).ready(function () {
             axesDefaults: {
                 labelRenderer: $.jqplot.CanvasAxisLabelRenderer
             }
+          , seriesDefaults: {
+                showLine:false
+            }
           , axes: {
                 xaxis: {
                     label: "U (V)"
@@ -360,6 +375,7 @@ $(document).ready(function () {
         }, 100);
 
         updateResult (0);
+        latest = null;
         $(".vol input").val("0.00");
         $(".cursor").css("top", min);
         termometer.setValue(20);
@@ -409,6 +425,7 @@ $(document).ready(function () {
         return false;
     });
 
+    var latest = null;
     SimpleDraggable(".cursor", {
         onlyY: true
       , onDrag: function (e, cEl) {
@@ -426,7 +443,18 @@ $(document).ready(function () {
                 value = 0;
             }
 
-            updateResult(value);
+            if (latest === null) { latest = value; }
+            if (value > latest) {
+                for (var i = latest; i < value; i += 0.2) {
+                    updateResult(i);
+                }
+            } else {
+                for (var i = value; i < latest; i += 0.2) {
+                    updateResult(i);
+                }
+            }
+
+            latest = value;
 
             if (cEl.offsetTop > max) {
                 cEl.style.top = (parseInt(cEl.style.top) - 1) + "px";
