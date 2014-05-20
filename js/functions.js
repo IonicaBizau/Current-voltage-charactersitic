@@ -275,18 +275,8 @@ $(document).ready(function () {
                     return x * 5;
                 }
 
-                // 3 ........ 25
-                // 30 ....... 90
-                // -------------
-                // 30a + b = 90
-                // 3a + b = 25
-                // ------------
-                // 27a = 65
-                // a = 2.4
-                // b =42
-
                 function computeTermometerValue () {
-                    return x * 2.4 + 42;
+                    return x * (65/27) + 160/9;
                 }
 
                 termometer.setValue(computeTermometerValue().toFixed());
