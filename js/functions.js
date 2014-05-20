@@ -1,8 +1,9 @@
 var arrow = [
     [ 2, 0 ],
-        [ -10, -4 ],
-            [ -10, 4]
-            ];
+    [ -10, -4 ],
+    [ -10, 4]
+];
+
 function translateShape(shape,x,y) {
     var rv = [];
     for(p in shape)
