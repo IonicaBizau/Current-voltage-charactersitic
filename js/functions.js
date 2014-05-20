@@ -212,6 +212,9 @@ $(document).ready(function () {
                 $(".system").show();
                 $(".physics-instrument.vol").css(initialPositions.vol);
                 $(".physics-instrument.amp").css(initialPositions.amp);
+                $(".texts>div:eq(0)").css({ top: "32px" , left: "885px" });
+                $(".texts>div:eq(1)").css({ top: "142px" , left: "1000px" });
+                $(".texts>div:eq(2)").css({ top: "142px" , left: "835px" });
             }
         }
       , bulb: {
@@ -237,6 +240,10 @@ $(document).ready(function () {
                 $(".system").show();
                 $(".physics-instrument.vol").css(initialPositions.vol);
                 $(".physics-instrument.amp").css(initialPositions.amp);
+
+                $(".texts>div:eq(0)").css({ top: "32px" , left: "885px" });
+                $(".texts>div:eq(1)").css({ top: "140px" , left: "1000px" });
+                $(".texts>div:eq(2)").css({ top: "147px" , left: "835px" });
             }
         }
       , diode: {
@@ -265,6 +272,10 @@ $(document).ready(function () {
                 $(".system").show();
                 $(".physics-instrument.vol").css(initialPositions.vol);
                 $(".physics-instrument.amp").css(initialPositions.amp);
+
+                $(".texts>div:eq(0)").css({ top: "32px" , left: "885px" });
+                $(".texts>div:eq(1)").css({ top: "180px" , left: "1000px" });
+                $(".texts>div:eq(2)").css({ top: "185px" , left: "835px" });
             }
         }
       , termistor: {
@@ -305,6 +316,10 @@ $(document).ready(function () {
                     top: "-20px"
                   , left: "1px"
                 });
+
+                $(".texts>div:eq(0)").css({ top: "32px" , left: "885px" });
+                $(".texts>div:eq(1)").css({ top: "170px" , left: "1000px" });
+                $(".texts>div:eq(2)").css({ top: "147px" , left: "835px" });
             }
         }
     };
@@ -335,7 +350,7 @@ $(document).ready(function () {
             }
           , axes: {
                 xaxis: {
-                    label: "U (V)"
+                    label: " "
                   , min: currentElement.x.min
                   , max: currentElement.x.max
                   , tickOptions: {
@@ -347,7 +362,7 @@ $(document).ready(function () {
                   , numberTicks: 11
                 }
               , yaxis: {
-                    label: "I (mA)"
+                    label: " "
                   , min: currentElement.y.min
                   , max: currentElement.y.max
                   , tickOptions: {

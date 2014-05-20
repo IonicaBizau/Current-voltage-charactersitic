@@ -396,3 +396,12 @@ img.termistor-system {
     left: -81px;
     top: -10px;
 }
+
+.texts > div {
+    width: 66px;
+}
+
+.texts {
+    z-index: 19;
+    color: #000;
+}
