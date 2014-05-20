@@ -276,7 +276,7 @@ $(document).ready(function () {
                 }
 
                 function computeTermometerValue () {
-                    return x * (65/27) + 160/9;
+                    return Math.abs(x) * (65/27) + 160/9;
                 }
 
                 termometer.setValue(computeTermometerValue().toFixed());
