@@ -358,3 +358,41 @@ img.polarity {
 canvas {
     pointer-events: none;
 }
+
+div.termometer {
+    top: 0px;
+    left: 425px;
+    width: 169px;
+    display: none;
+}
+
+.termometer > img {
+    width: 100%;
+}
+
+div.termometer-level {
+    width: 15px;
+    height: 179px;
+    top: 206px;
+    left: 161px;
+    background: #FF4800;
+    border-radius: 10px;
+}
+
+div.termometer-value {
+    top: 320px;
+    left: 169px;
+    font-size: 30px;
+}
+.termometer-value > span.v {
+    right: 33px;
+}
+
+.termistor-system {
+    display: none;
+}
+
+img.termistor-system {
+    left: -83px;
+    top: -7px;
+}

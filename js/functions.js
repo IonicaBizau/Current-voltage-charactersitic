@@ -109,6 +109,17 @@ var SimpleDraggable = function (selector, options) {
  * */
 $(document).ready(function () {
 
+    var initialPositions = {
+        vol: {
+            top: $(".physics-instrument.vol").css("top")
+          , left: $(".physics-instrument.vol").css("left")
+        }
+      , amp: {
+            top: $(".physics-instrument.amp").css("top")
+          , left: $(".physics-instrument.amp").css("left")
+        }
+    };
+
     $("select").on("keydown", function () {
         return false;
     });
@@ -162,6 +173,10 @@ $(document).ready(function () {
                   ;
                 drawLineArrow(0, y, 356, y);
                 drawLineArrow(x, 290, x, 0);
+                $(".termometer,.termistor-system").hide();
+                $(".system").show();
+                $(".physics-instrument.vol").css(initialPositions.vol);
+                $(".physics-instrument.amp").css(initialPositions.amp);
             }
         }
       , bulb: {
@@ -183,6 +198,10 @@ $(document).ready(function () {
                   ;
                 drawLineArrow(0, y, 350, y);
                 drawLineArrow(x, 290, x, 0);
+                $(".termometer,.termistor-system").hide();
+                $(".system").show();
+                $(".physics-instrument.vol").css(initialPositions.vol);
+                $(".physics-instrument.amp").css(initialPositions.amp);
             }
         }
       , diode: {
@@ -207,6 +226,44 @@ $(document).ready(function () {
                   ;
                 drawLineArrow(0, y, 350, y);
                 drawLineArrow(x, 290, x, 0);
+                $(".termometer,.termistor-system").hide();
+                $(".system").show();
+                $(".physics-instrument.vol").css(initialPositions.vol);
+                $(".physics-instrument.amp").css(initialPositions.amp);
+            }
+        }
+      , termistor: {
+            name: "termistor"
+          , functionLaw: function (x) {
+                if (x < 3 && x > -3) {
+                    return x * 5;
+                }
+
+                return (x < 0 ? -1 : 1 ) * 15 - x / 10;
+            }
+          , x: {
+                min: -17
+              , max: 17
+            }
+          , y: {
+                min: -30
+              , max: 30
+            }
+          , afterInit: function () {
+                var y = 145
+                  , x = 174
+                  ;
+
+                drawLineArrow(0, y, 350, y);
+                drawLineArrow(x, 290, x, 0);
+
+                $(".termometer,.termistor-system").show();
+                $(".system").hide();
+                $(".physics-instrument.vol").css("top", "83px");
+                $(".physics-instrument.amp").css({
+                    top: "-20px"
+                  , left: "1px"
+                });
             }
         }
     };
@@ -316,13 +373,19 @@ $(document).ready(function () {
         onlyY: true
       , onDrag: function (e, cEl) {
 
-            var value = (cEl.offsetTop - min) / ((max - min) / currentElement.x.max);
+            var xMax = currentElement.x.max;
+
+            // change x with y
+            if (currentElement.name === "termistor") {
+                xMax = currentElement.y.max;
+            }
+
+            var value = (cEl.offsetTop - min) / ((max - min) / xMax);
             value = (degs === 0 ? 1 : -1) * value;
             if (!degs && value < 0 || degs && value > 0) {
                 value = 0;
             }
 
-            $(".vol input").val(value.toFixed(2));
             updateResult(value);
 
             if (cEl.offsetTop > max) {
@@ -347,12 +410,16 @@ $(document).ready(function () {
      *
      */
     function updateResult (value) {
-        // if (currentElement.name === "bulb") {
-        //     value *= 3;
-        // }
         var x = value
           , y = currentElement.functionLaw (value)
           ;
+
+        // change x with y
+        if (currentElement.name === "termistor") {
+            var aux = x;
+            x = y;
+            y = aux;
+        }
 
         if ($(".add-points input").prop("checked")) {
             var seriesObj = expGraph.series[0];
@@ -364,6 +431,7 @@ $(document).ready(function () {
             expGraph.drawSeries({},0);
         }
 
+        $(".vol input").val(x.toFixed(2));
         $(".amp input").val(y.toFixed(2));
     }
 

@@ -19,11 +19,18 @@
             </h1>
             <div class="screen">
                 <img class="system" src="img/system.png">
+                <img class="termistor-system" src="img/termistor.png">
                 <img class="polarity transition" src="img/polarity.png" alt="">
                 <div class="changeableElement">
                     <img src="img/elements/resistor.png" data-name="resistor">
                     <img src="img/elements/bulb.png" data-name="bulb">
                     <img src="img/elements/diode.png" data-name="diode">
+                </div>
+                <div class="termometer">
+                    <img src="img/termometer.png" alt="">
+                    <div class="termometer-value"></div>
+                    <div class="termometer-level"></div>
+                    <div class="termometer-value"><span class="v">25</span> °C</div>
                 </div>
                 <div class="physics-instrument amp">
                     <input class="value" type="text" readonly="">
@@ -54,6 +61,8 @@
                     <option data-lang="ro" value="resistor">Rezistor</option>
                     <option data-lang="ro" value="diode">Diodă semiconductoare</option>
                     <option data-lang="ro" value="bulb">Bec</option>
+                    <option data-lang="ro" value="termistor">Termistor</option>
+
                     <option data-lang="en" value="resistor">Resistor</option>
                     <option data-lang="en" value="diode">Diode</option>
                     <option data-lang="en" value="bulb">Bulb</option>
