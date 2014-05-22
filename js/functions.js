@@ -291,7 +291,7 @@ $(document).ready(function () {
                 }
 
                 termometer.setValue(computeTermometerValue().toFixed());
-                return (x < 0 ? -1 : 1 ) * 15 - x / 10;
+                return (x < 0 ? -1 : 1 ) * 15 - x / 50;
             }
           , x: {
                 min: -17
