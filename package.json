@@ -1,0 +1,39 @@
+{
+  "name": "current-voltage-characteristic-simulation",
+  "version": "1.0.0",
+  "description": "Analize current-voltage characteristics using an application that simulates this.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IonicaBizau/Current-voltage-charactersitic.git"
+  },
+  "author": "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IonicaBizau/Current-voltage-charactersitic/issues"
+  },
+  "homepage": "https://github.com/IonicaBizau/Current-voltage-charactersitic#readme",
+  "files": [
+    "bin/",
+    "app/",
+    "lib/",
+    "dist/",
+    "src/",
+    "scripts/",
+    "resources/",
+    "menu/",
+    "cli.js",
+    "index.js",
+    "bloggify.js",
+    "bloggify.json",
+    "bloggify/"
+  ],
+  "blah": {
+    "title": "Current–voltage characteristic",
+    "ex_img": "http://i.imgur.com/QSSlXCH.png",
+    "ex_url": "http://ionicabizau.github.io/Current-voltage-charactersitic/"
+  }
+}
